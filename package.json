@@ -1,34 +1,30 @@
 {
-    "name": "nodebb-plugin-mailchimp",
-    "version": "0.0.1",
-    "description": "A MailChimp Hook for NodeBB",
-    "main": "index.js",
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/akhoury/nodebb-plugin-mailchimp"
-    },
-    "keywords": [
-        "nodebb",
-        "plugin",
-        "mailchimp"
-    ],
-    "author": {
-        "name": "Aziz Khoury",
-        "email": "bentael@gmail.com"
-    },
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/akhoury/nodebb-plugin-mailchimp/issues"
-    },
-    "dependencies": {
-        "mailchimp": "~1.1.0",
-        "fs-extra": "~0.8.1",
-        "async": "~0.2.9"
-    },
-    "readme": "# NodeBB MailChimp plugin\n\nThis NodeBB plugin submits newly registered users to your mailchimp account, using the [MailChimp API 2.0](http://apidocs.mailchimp.com/api/2.0/).\n\nTo enter your MailChimp API key and list_id see the \"Mailchimp\" page in the administration panel, under the \"Plugins\" heading.\n\n## Installation\n\n    npm install nodebb-plugin-mailchimp",
-    "readmeFilename": "README.md",
-    "homepage": "https://github.com/akhoury/nodebb-plugin-mailchimp"
+  "name": "nodebb-plugin-mailchimp",
+  "version": "0.0.1",
+  "description": "A MailChimp Hook for NodeBB",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/akhoury/nodebb-plugin-mailchimp"
+  },
+  "keywords": [
+    "nodebb",
+    "plugin",
+    "mailchimp"
+  ],
+  "author": "Aziz Khoury <bentael@gmail.com>",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/akhoury/nodebb-plugin-mailchimp/issues"
+  },
+  "dependencies": {
+    "mailchimp": "~1.1.0",
+    "fs-extra": "~0.8.1",
+    "async": "~0.2.9"
+  },
+  "homepage": "https://github.com/akhoury/nodebb-plugin-mailchimp",
+  "devDependencies": {}
 }
