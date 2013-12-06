@@ -2,7 +2,7 @@ var	MailChimpAPI = require('mailchimp').MailChimpAPI,
 	fse = require('fs-extra'),
 	path = require('path'),
 	async = require('async'),
-	RDB = module.parent.require('./redis'),
+	meta = module.parent.require('./meta'),
 	api,
 	logFile = path.join(__dirname, 'nodebb-plugin-mailchimp.log'),
 
@@ -24,7 +24,7 @@ var	MailChimpAPI = require('mailchimp').MailChimpAPI,
 				],
 				hashes = fields.map(function(field) { return 'nodebb-plugin-mailchimp:options:' + field });
 
-			RDB.hmget('config', hashes, function(err, options) {
+			meta.getFields('config', hashes, function(err, options) {
 				fields.forEach(function(field, idx) {
 					if (field === 'logging' || field.indexOf('mc_') >= 0) {
 						options[idx] = options[idx] === '1';
@@ -145,7 +145,6 @@ var	MailChimpAPI = require('mailchimp').MailChimpAPI,
 
 			activate: function(id) {
 				if (id === 'nodebb-plugin-mailchimp') {
-					var	Meta = module.parent.require('./meta'),
 						defaults = [
 							{ field: 'apikey', value: '' },
 							{ field: 'listid', value: '' },
@@ -156,7 +155,7 @@ var	MailChimpAPI = require('mailchimp').MailChimpAPI,
 						];
 
 					async.each(defaults, function(optObj, next) {
-						Meta.configs.setOnEmpty('nodebb-plugin-mailchimp:options:' + optObj.field, optObj.value, next);
+						meta.configs.setOnEmpty('nodebb-plugin-mailchimp:options:' + optObj.field, optObj.value, next);
 					});
 				}
 			}
