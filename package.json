@@ -1,6 +1,6 @@
 {
 	"name": "nodebb-plugin-mailchimp",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"description": "A MailChimp Hook for NodeBB",
 	"main": "index.js",
 	"scripts": {
