@@ -23,6 +23,7 @@
 	"dependencies": {
 		"mailchimp": "~1.1.0",
 		"fs-extra": "~0.8.1",
+		"tiny-logger": "*",
 		"async": "~0.2.9"
 	},
 	"homepage": "https://github.com/akhoury/nodebb-plugin-mailchimp",
