@@ -3,24 +3,13 @@
 	"name": "MailChimp",
 	"description": "A MailChimp hook for NodeBB",
 	"url": "https://github.com/akhoury/nodebb-plugin-mailchimp",
-	"library": "./index.js",
-	"staticDir": "./public",
-	"css": [
-		"css/default.css"
-	],
+	"library": "./library.js",
+	"templates": "templates",
 	"hooks": [
-		{ "hook": "action:user.create", "method": "listSubscribe", "priority": 5 },
-		{ "hook": "filter:admin.header.build", "method": "admin.menu", "callbacked": false },
-		{ "hook": "filter:admin.create_routes", "method": "admin.route", "callbacked": true },
-		{ "hook": "action:plugin.activate", "method": "admin.activate" },
-		{ "hook": "action:config.set", "method": "reload" }
+		{"hook": "action:app.load", "method": "load"},
+		{"hook": "filter:admin.header.build", "method": "admin.menu"},
+		{"hook": "action:user.create", "method": "subscribe"}
 	],
-	"defaults": {
-		"apikey": "",
-		 "listid": "",
-		"logging": false,
-		"mc_double_optin": false,
-		"mc_update_existing": false,
-		"mc_send_welcome": false
-	}
+	"minver": "0.4.2",
+	"faIcon": "fa-envelope-o"
 }

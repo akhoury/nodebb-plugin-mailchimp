@@ -1,10 +1,10 @@
 nodebb-plugin-mailchimp
 =======================
 
-Submits newly registered NodeBB emails to MailChimp's account.
+Submits newly registered NodeBB emails to your MailChimp's List.
 
 ## Installation
 
     npm install nodebb-plugin-mailchimp
 
-Source and structure bluntly stolen from @julianlam's [nodebb-plugin-markdown](https://github.com/julianlam/nodebb-plugin-markdown)
+![Imgur](http://i.imgur.com/hGKWUeI.png)

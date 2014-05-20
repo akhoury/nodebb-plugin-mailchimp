@@ -1,11 +1,7 @@
 {
 	"name": "nodebb-plugin-mailchimp",
-	"version": "0.1.0",
-	"description": "A MailChimp Hook for NodeBB",
-	"main": "index.js",
-	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
-	},
+	"version": "0.2.0",
+	"description": "A MailChimp Hook for NodeBB to auto-subscribe users into a MailChimp List",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/akhoury/nodebb-plugin-mailchimp"
@@ -13,19 +9,16 @@
 	"keywords": [
 		"nodebb",
 		"plugin",
-		"mailchimp"
+		"mailchimp",
+		"email"
 	],
-	"author": "Aziz Khoury <bentael@gmail.com>",
-	"license": "BSD-2-Clause",
-	"bugs": {
-		"url": "https://github.com/akhoury/nodebb-plugin-mailchimp/issues"
+	"author": {
+		"name": "Aziz Khoury",
+		"email": "bentael@gmail.com"
 	},
+	"license": "MIT",
 	"dependencies": {
-		"mailchimp": "~1.1.0",
-		"fs-extra": "~0.8.1",
-		"tiny-logger": "*",
-		"async": "~0.2.9"
+		"mailchimp": "~1.1.0"
 	},
 	"homepage": "https://github.com/akhoury/nodebb-plugin-mailchimp",
-	"devDependencies": {}
 }
