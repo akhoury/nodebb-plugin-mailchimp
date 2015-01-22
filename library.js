@@ -27,17 +27,19 @@ var util = {
 			obj[prop] = {};
 
 		return util.keys(obj[prop], newProps, value);
+	},
+
+	toBool: function(val) {
+		return !!(val === true || val === 1 || val === 'on' || val === '1');
 	}
 };
 
-Plugin.load = function(app, middleware, controllers) {
+Plugin.load = function(params, callback) {
+	var app = params.router;
+	var middleware = params.middleware;
 
 	var render = function(req, res, next) {
 		res.render('admin/plugins/' + pluginData.nbbId, pluginData || {});
-	};
-
-	var toBool = function(val) {
-		return !!(val === true || val === 1 || val === 'on');
 	};
 
 	Meta.settings.get(pluginData.nbbId, function(err, settings) {
@@ -45,12 +47,12 @@ Plugin.load = function(app, middleware, controllers) {
 			if (settings.mailchimpApiKey) {
 
 				pluginSettings = {
-					mailchimpEnabled: toBool(settings.mailchimpEnabled),
 					mailchimpApiKey: settings.mailchimpApiKey,
 					mailchimpListId: settings.mailchimpListId,
-					mc_double_optin: toBool(settings.mc_double_optin),
-					mc_update_existing: toBool(settings.mc_update_existing),
-					mc_send_welcome: toBool(settings.mc_send_welcome)
+					mailchimpEnabled: util.toBool(settings.mailchimpEnabled),
+					mc_double_optin: util.toBool(settings.mc_double_optin),
+					mc_update_existing: util.toBool(settings.mc_update_existing),
+					mc_send_welcome: util.toBool(settings.mc_send_welcome)
 				};
 
 				mailchimpApi = new MailChimpAPI(settings.mailchimpApiKey, {version: '2.0'});
@@ -61,10 +63,13 @@ Plugin.load = function(app, middleware, controllers) {
 		} else {
 			winston.warn('[plugins/' + pluginData.nbbId + '] Settings not set or could not be retrived!');
 		}
+
+		callback();
 	});
 
-	app.get('/admin/plugins/' + pluginData.nbbId, middleware.admin.buildHeader, render);
-	app.get('/api/admin/plugins/' + pluginData.nbbId, render);
+	app.get('/admin/plugins/' + pluginData.nbbId, middleware.applyCSRF, middleware.admin.buildHeader, render);
+	app.get('/api/admin/plugins/' + pluginData.nbbId, middleware.applyCSRF, render);
+
 };
 
 Plugin.admin = {
@@ -81,7 +86,7 @@ Plugin.admin = {
 
 Plugin.subscribe = function(userData) {
 	if (mailchimpApi && pluginSettings.mailchimpEnabled && pluginSettings.mailchimpListId && userData) {
-		mailchimpApi.lists_subscribe({
+		var params = {
 			id: pluginSettings.mailchimpListId,
 			email: {email: userData.email},
 			merge_vars: {
@@ -92,13 +97,15 @@ Plugin.subscribe = function(userData) {
 			double_optin: pluginSettings['mc_double_optin'],
 			update_existing: pluginSettings['mc_update_existing'],
 			send_welcome: pluginSettings['mc_send_welcome']
-		}, function(err, response){
+		};
+
+		mailchimpApi.lists_subscribe(params, function(err, response){
 			response = response || {};
 			if (err) {
 				winston.warn('[plugins/' + pluginData.nbbId + '] ' + err);
 			} else {
 				if (response.email) {
-					if (process.env == 'development')
+					if (process.env === 'development')
 						winston.info('[plugins/' + pluginData.nbbId + '] Successfully subscribed ' + userData.email + ' to list: ' + pluginSettings.mailchimpListId);
 				} else if (response.error) {
 					winston.warn('[plugins/' + pluginData.nbbId + '] failed to subscribe ' + userData.email + ' without no returned :/, you\'re on your own, here\'s the response: \n' + JSON.stringify(response || {}));
@@ -106,8 +113,9 @@ Plugin.subscribe = function(userData) {
 			}
 		});
 	} else {
-		if (pluginSettings.mailchimpEnabled)
+		if (pluginSettings.mailchimpEnabled) {
 			winston.warn('[plugins/' + pluginData.nbbId + '] did not attempt to subscribe ' + userData.email + '. make you have you entered both; a MailChimp API Key and a MailChimp List Id');
+		}
 	}
 };
 

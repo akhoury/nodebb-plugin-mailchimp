@@ -6,10 +6,10 @@
 	"library": "./library.js",
 	"templates": "templates",
 	"hooks": [
-		{"hook": "action:app.load", "method": "load"},
+		{"hook": "static:app.load", "method": "load"},
 		{"hook": "filter:admin.header.build", "method": "admin.menu"},
 		{"hook": "action:user.create", "method": "subscribe"}
 	],
-	"minver": "0.4.2",
+	"compatibility": "^0.6.x",
 	"faIcon": "fa-envelope-o"
 }

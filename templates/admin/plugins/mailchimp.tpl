@@ -32,12 +32,14 @@
                 </p>
             </div>
 
-            <h3>Some MailChimp specific options</h3>
-            <p class="text-muted">
-                Basically I picked out a couple from
-                <a target="_blank" href="http://apidocs.mailchimp.com/api/2.0/lists/subscribe.php">here</a>.
-                Will add more per request
-            </p>
+            <div class="col-sm-12">
+                <h3>Some MailChimp specific options</h3>
+                <p class="text-muted">
+                    Basically I picked out a couple from
+                    <a target="_blank" href="http://apidocs.mailchimp.com/api/2.0/lists/subscribe.php">here</a>.
+                    Will add more per request
+                </p>
+            </div>
 
             <div class="col-sm-12">
                 <div class="checkbox">
@@ -122,7 +124,15 @@
 			    wrapper.find(invalidSelector).each(function(i, el) { el = $(el); el.parents('.form-group').addClass('has-error'); });
 			} else {
                 Settings.save(nbbId, wrapper, function() {
-                    socket.emit('admin.restart');
+                        app.alert({
+                            type: 'success',
+                            alert_id: 'mailchimp-saved',
+                            title: 'Reload Required',
+                            message: 'Settings saved. Please reload your NodeBB to have your changes take effect',
+                            clickfn: function() {
+                                socket.emit('admin.reload');
+                            }
+                        });
                 });
 			}
 		});
