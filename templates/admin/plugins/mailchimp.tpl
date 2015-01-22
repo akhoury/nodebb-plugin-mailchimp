@@ -115,7 +115,7 @@
 			var invalidSelector = '', invalidCount = 0;
 			wrapper.find('input[type="checkbox"]').each(function(i, checkbox) {
 			    checkbox = $(checkbox);
-			    if (checkbox.is(':checked') && !wrapper.find(checkbox.attr('data-toggle-target')).val()) {
+			    if (checkbox.is(':checked') && checkbox.attr('data-toggle-target') && !wrapper.find(checkbox.attr('data-toggle-target')).val()) {
 			        invalidSelector += (!invalidCount++ ? '' : ', ') + checkbox.attr('data-toggle-target');
 			    }
 			});

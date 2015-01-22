@@ -1,6 +1,6 @@
 {
 	"name": "nodebb-plugin-mailchimp",
-	"version": "0.3.0",
+	"version": "0.3.1",
 	"description": "A MailChimp Hook for NodeBB to auto-subscribe users into a MailChimp List",
 	"repository": {
 		"type": "git",
