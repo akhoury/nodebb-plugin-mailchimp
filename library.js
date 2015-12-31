@@ -67,8 +67,8 @@ Plugin.load = function(params, callback) {
 		callback();
 	});
 
-	app.get('/admin/plugins/' + pluginData.nbbId, middleware.applyCSRF, middleware.admin.buildHeader, render);
-	app.get('/api/admin/plugins/' + pluginData.nbbId, middleware.applyCSRF, render);
+	app.get('/admin/plugins/' + pluginData.nbbId, middleware.admin.buildHeader, render);
+	app.get('/api/admin/plugins/' + pluginData.nbbId, render);
 
 };
 
@@ -108,13 +108,13 @@ Plugin.subscribe = function(userData) {
 					if (process.env === 'development')
 						winston.info('[plugins/' + pluginData.nbbId + '] Successfully subscribed ' + userData.email + ' to list: ' + pluginSettings.mailchimpListId);
 				} else if (response.error) {
-					winston.warn('[plugins/' + pluginData.nbbId + '] failed to subscribe ' + userData.email + ' without no returned :/, you\'re on your own, here\'s the response: \n' + JSON.stringify(response || {}));
+					winston.warn('[plugins/' + pluginData.nbbId + '] failed to subscribe ' + userData.email + ', you\'re on your own, here\'s the response: \n' + JSON.stringify(response || {}), undefined, 2);
 				}
 			}
 		});
 	} else {
 		if (pluginSettings.mailchimpEnabled) {
-			winston.warn('[plugins/' + pluginData.nbbId + '] did not attempt to subscribe ' + userData.email + '. make you have you entered both; a MailChimp API Key and a MailChimp List Id');
+			winston.warn('[plugins/' + pluginData.nbbId + '] did not attempt to subscribe ' + userData.email + '. make sure you have you entered both; a MailChimp API Key and a MailChimp List Id');
 		}
 	}
 };

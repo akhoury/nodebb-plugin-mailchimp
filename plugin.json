@@ -10,6 +10,5 @@
 		{"hook": "filter:admin.header.build", "method": "admin.menu"},
 		{"hook": "action:user.create", "method": "subscribe"}
 	],
-	"compatibility": "^0.6.x",
 	"faIcon": "fa-envelope-o"
 }

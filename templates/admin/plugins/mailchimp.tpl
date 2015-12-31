@@ -82,7 +82,7 @@
 	    <p class="help-block">
 	        This plugin uses <a target="_blank" href="https://github.com/gomfunkel/node-mailchimp">mailchimp</a>
 	        <br />
-	        File issues, pull requests or ideas at the <a target="_blank" href="https://github.com/akhoury/{nbbId}">github repo</a>
+	        File issues, pull requests or ideas at the <a target="_blank" href="https://github.com/akhoury/nodebb-plugin-{nbbId}">github repo</a>
 	    </p>
 	</fieldset>
 </form>
