@@ -85,6 +85,7 @@ Plugin.admin = {
 };
 
 Plugin.subscribe = function(userData) {
+	userData = userData.user || userData;
 	if (mailchimpApi && pluginSettings.mailchimpEnabled && pluginSettings.mailchimpListId && userData) {
 		var params = {
 			id: pluginSettings.mailchimpListId,
