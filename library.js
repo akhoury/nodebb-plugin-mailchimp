@@ -1,8 +1,6 @@
 var	pluginData = require('./plugin.json'),
-	winston = module.parent.require('winston'),
-	nconf = module.parent.require('nconf'),
-	async = module.parent.require('async'),
-	Meta = module.parent.require('./meta'),
+	winston = require.main.require('winston'),
+	Meta = require.main.require('./src/meta'),
 	Plugin = {}, pluginSettings = {},
 	MailChimpAPI = require('mailchimp').MailChimpAPI,
 	mailchimpApi;
@@ -15,7 +13,7 @@ var util = {
 			return undefined;
 
 		var i = props.indexOf(".");
-		if( i == -1 ) {
+		if( i === -1 ) {
 			if(value !== undefined)
 				obj[props] = value;
 			return obj[props];
@@ -23,8 +21,9 @@ var util = {
 		var prop = props.slice(0, i),
 			newProps = props.slice(i + 1);
 
-		if(props !== undefined && !(obj[prop] instanceof Object) )
+		if(typeof props !== 'undefined' && !(obj[prop] instanceof Object)) {
 			obj[prop] = {};
+		}
 
 		return util.keys(obj[prop], newProps, value);
 	},
